@@ -1,18 +1,34 @@
 package com.sysco.javaWebUIAutomation.tests;
 
+import com.sysco.javaWebUIAutomation.data.LoginData;
 import com.sysco.javaWebUIAutomation.function.*;
 import com.sysco.javaWebUIAutomation.util.TestBase;
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import temp.RowFix;
 
+
+
 public class CartTest extends TestBase {
-    @Test
-    public void VerifyItemsInCartAreRemovedIfPresent(){
-        SoftAssert softAssert = new SoftAssert();
+
+    static LoginData loginData = new LoginData();
+
+    @BeforeClass
+    public void initClass(ITestContext iTestContext) {
+        iTestContext.setAttribute("feature", "Cart - Cart");
         TheAthletesFootHome.loadHomePage();
         TheAthletesFootHome.clickLoginButton();
-        Login.loginWithRegisteredUserCredentials();
+    }
+
+
+
+
+    @Test(description = "Remove Item If Present")
+    public void VerifyItemsInCartAreRemovedIfPresent(){
+        SoftAssert softAssert = new SoftAssert();
+        Login.loginWithRegisteredUserCredentials(loginData);
         MyAccount.clickCartButtonValue();
         Cart.clickRemoveButtonInCart();
         softAssert.assertTrue(Cart.isConfirmDeleteItemMessageDisplayed(),"CONFIRM DELETE ITEM MESSAGE IS NOT DISPLAYED");
@@ -26,12 +42,9 @@ public class CartTest extends TestBase {
     }
 
 
-    @Test
+    @Test(description = "Verify the price and item in cart after adding a item", dependsOnMethods = "VerifyItemsInCartAreRemovedIfPresent")
     public void VerifyPriceAndNameInCartAfterAddingAnItem(){
         SoftAssert softAssert = new SoftAssert();
-        TheAthletesFootHome.loadHomePage();
-        TheAthletesFootHome.clickLoginButton();
-        Login.loginWithRegisteredUserCredentials();
         AddItem.clickMensLabel();
         AddItem.clickRunCategory();
         AddItem.clickFirstShoeInList();

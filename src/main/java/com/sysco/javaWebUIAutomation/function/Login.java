@@ -56,8 +56,8 @@ public class Login  {
         return errorMessages;
     }
 
-    public static void loginWithInvalidEmail(){
-        loginPage.clickLoginButtonWithInvalidEmail();
+    public static void loginWithInvalidEmail(LoginData loginData){
+        loginPage.clickLoginButtonWithInvalidEmail(loginData);
     }
 
     public static String getInvalidEmailErrorMessage(){
@@ -65,8 +65,8 @@ public class Login  {
         return errorMessages;
     }
 
-    public static void loginWithUnregisteredUserCredentials(){
-        loginPage.clickLoginButtonWithUnregisteredEmailAndPassword();
+    public static void loginWithUnregisteredUserCredentials(LoginData loginData){
+        loginPage.clickLoginButtonWithUnregisteredEmailAndPassword(loginData);
     }
 
     public static String getUnregisteredUserErrorMessage(){
@@ -74,8 +74,8 @@ public class Login  {
         return errorMessages;
     }
 
-    public static void loginWithRegisteredUserCredentials(){
-        loginPage.clickLoginButtonWithRegisteredEmailAndPassword();
+    public static void loginWithRegisteredUserCredentials(LoginData loginData){
+        loginPage.clickLoginButtonWithRegisteredEmailAndPassword(loginData);
     }
 
 

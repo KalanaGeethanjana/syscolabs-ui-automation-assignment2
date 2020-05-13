@@ -6,7 +6,8 @@ import org.openqa.selenium.JavascriptExecutor;
 public class AddItemPage extends TheAthletesFootHomePage {
 
     private By lnkMen =By.xpath("//*[@id='mi-1-2']");
-    private By lnkRun =By.xpath("//*[@id='mi-3-2-3-1']");
+    //private By lnkRun =By.xpath("//*[@id='mi-3-2-3-1']");
+    private By lnkRun =By.xpath("//*[@id='mi-3-2-3-1' and @title='Run']");
     //private By lnkFirstShoe = By.xpath("//a[@class='product-item-link' and @title='BROOKS ADRENALINE GTS 20 MENS NAVY BLUE SILVER']");
     private By lnkFirstShoe = By.xpath("//a[@class='product-item-link'][1]");
     private By lblShoeSize9 = By.xpath("//div[@option-id='286' and @option-label='9']");
@@ -19,11 +20,14 @@ public class AddItemPage extends TheAthletesFootHomePage {
     }
 
     public void clickRunCategory(){
+        //JavascriptExecutor executor = (JavascriptExecutor)syscoLabUI.driver;
+        //executor.executeScript("arguments[0].click();", syscoLabUI.driver.findElement(By.xpath("//a[@class='product-item-link'][1]")));
         syscoLabUI.waitTillElementLoaded(lnkRun);
         syscoLabUI.click(lnkRun);
     }
 
     public void clickFirstShoeInList(){
+        syscoLabUI.sleep(5);
         JavascriptExecutor executor = (JavascriptExecutor)syscoLabUI.driver;
         executor.executeScript("arguments[0].click();", syscoLabUI.driver.findElement(By.xpath("//a[@class='product-item-link'][1]")));
         //syscoLabUI.waitTillElementLoaded(lnkFirstShoe);

@@ -6,29 +6,41 @@ import org.openqa.selenium.JavascriptExecutor;
 
 public class CheckOutPage extends TheAthletesFootHomePage {
 
-    CheckOutData checkOutData = new CheckOutData();
+    //CheckOutData checkOutData = new CheckOutData();
 
-    private By txtFirstName = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='First Name']/../following-sibling::div/input");
-    private By txtLastName = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Last Name']/../following-sibling::div/input");
+    //private By txtFirstName = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='First Name']/../following-sibling::div/input");
+    private By txtFirstName = By.xpath("//div[@id='shipping-new-address-form']//input[@name='firstname']");
+    //private By txtLastName = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Last Name']/../following-sibling::div/input");
+    private By txtLastName = By.xpath("//div[@id='shipping-new-address-form']//input[@name='lastname']");
     private By btnContinue = By.xpath("//button[@title='Continue']");
-    private By errorEmptyAddress =By.xpath("//div[@id='shipping-new-address-form']/fieldset//span[text()='Street Address Line 1']/../following-sibling::div/div/span");
-    private By errorEmptySuburb =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Suburb']/../following-sibling::div/div/span");
-    private By errorEmptyStateProvince =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='State/Province']/../following-sibling::div/div/span");
-    private By errorEmptyPostCode =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Post Code']/../following-sibling::div/div/span");
-    private By errorEmptyPhoneNumber =By.xpath("//div[@id='shipping-new-address-form']/div//label/span[text()='Phone Number']/../following-sibling::div/div[@class='field-error mage-error']/span");
-    private By txtAddress = By.xpath("//div[@id='shipping-new-address-form']/fieldset//span[text()='Street Address Line 1']/../following-sibling::div/input");
-    private By txtSuburb =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Suburb']/../following-sibling::div/input");
-    private By txtStateProvince = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='State/Province']/../following-sibling::div/input");
-    private By txtPostCode = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Post Code']/../following-sibling::div/input");
-    private By txtPhoneNumber = By.xpath("//div[@id='shipping-new-address-form']/div//label/span[text()='Phone Number']/../following-sibling::div/input");
+    //private By errorEmptyAddress =By.xpath("//div[@id='shipping-new-address-form']/fieldset//span[text()='Street Address Line 1']/../following-sibling::div/div/span");
+    private By errorEmptyAddress =By.xpath("//div[@name='shippingAddress.street.0']//div[@class='field-error mage-error']");
+    //private By errorEmptySuburb =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Suburb']/../following-sibling::div/div/span");
+    private By errorEmptySuburb =By.xpath("//div[@name='shippingAddress.city']//div[@class='field-error mage-error']");
+    //private By errorEmptyStateProvince =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='State/Province']/../following-sibling::div/div/span");
+    private By errorEmptyStateProvince =By.xpath("//div[@name='shippingAddress.region_id']//div[@class='field-error mage-error']");
+    //private By errorEmptyPostCode =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Post Code']/../following-sibling::div/div/span");
+    private By errorEmptyPostCode =By.xpath("//div[@name='shippingAddress.postcode']//div[@class='field-error mage-error']");
+    //private By errorEmptyPhoneNumber =By.xpath("//div[@id='shipping-new-address-form']/div//label/span[text()='Phone Number']/../following-sibling::div/div[@class='field-error mage-error']/span");
+    private By errorEmptyPhoneNumber =By.xpath("//div[@name='shippingAddress.telephone']//div[@class='field-error mage-error']");
+    //private By txtAddress = By.xpath("//div[@id='shipping-new-address-form']/fieldset//span[text()='Street Address Line 1']/../following-sibling::div/input");
+    private By txtAddress = By.xpath("//div[@name='shippingAddress.street.0']//input[@name='street[0]']");
+    //private By txtSuburb =By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Suburb']/../following-sibling::div/input");
+    private By txtSuburb =By.xpath("//div[@name='shippingAddress.city']//input[@name='city']");
+    //private By txtStateProvince = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='State/Province']/../following-sibling::div/input");
+    //private By txtPostCode = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='Post Code']/../following-sibling::div/input");
+    private By txtPostCode = By.xpath("//div[@name='shippingAddress.postcode']//input[@name='postcode']");
+    //private By txtPhoneNumber = By.xpath("//div[@id='shipping-new-address-form']/div//label/span[text()='Phone Number']/../following-sibling::div/input");
+    private By txtPhoneNumber = By.xpath("//div[@name='shippingAddress.telephone']//input[@name='telephone']");
     private By txtPostCodeOption1 = By.xpath("//a[text()=' BARANGAROO New South Wales']");
-    private By txtStateProvinceOption1 = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='State/Province']/../following-sibling::div/input");
+   // private By txtStateProvinceOption1 = By.xpath("//div[@id='shipping-new-address-form']/div/label/span[text()='State/Province']/../following-sibling::div/input");
     private By lblPaymentInformationHeader = By.xpath("//span[text()='Payment Information']");
     private By rdPayPal = By.xpath("//span[@class='paypal-text']");
     private By rdCredictCard = By.xpath("//strong[@class='card-title']");
     private By rdPayOverTime = By.xpath("//span[text()='Pay Over Time']");
     private By lblGrandTotal = By.xpath("//strong[text()='Grand Total']");
     private By btnPlaceOrderDisabled = By.xpath("//div[@class='opc-submit-step']");
+
 
 
 
@@ -68,7 +80,7 @@ public class CheckOutPage extends TheAthletesFootHomePage {
         return errorMessages;
     }
 
-    public void setDataforCheckOutPageRequiredFields(){
+    public void setDataforCheckOutPageRequiredFields(CheckOutData checkOutData){
         syscoLabUI.sendKeys(txtAddress, checkOutData.address);
         syscoLabUI.sendKeys(txtSuburb, checkOutData.suburb);
         //syscoLabUI.sendKeys(txtStateProvince,checkOutData.provinceState);

@@ -5,17 +5,27 @@ import com.sysco.javaWebUIAutomation.data.LoginData;
 import com.sysco.javaWebUIAutomation.function.Login;
 import com.sysco.javaWebUIAutomation.function.TheAthletesFootHome;
 import com.sysco.javaWebUIAutomation.util.TestBase;
+import org.testng.ITestContext;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class LoginTest extends TestBase {
     static LoginData loginData = new LoginData();
 
-    @Test
-    public void VerifyLoginPageContents(){
-        SoftAssert softAssert = new SoftAssert();
+    @BeforeClass
+    public void initClass(ITestContext iTestContext) {
+        iTestContext.setAttribute("feature", "Login - Login");
         TheAthletesFootHome.loadHomePage();
         TheAthletesFootHome.clickLoginButton();
+
+    }
+
+    @Test(description = "Verify login page")
+    public void VerifyLoginPageContents(){
+        SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(Login.isLoginOrCreateMyFitRewardsAccountHeaderAvailable(),"THE LOGIN OR CREATE MY FIT REWARDS ACCOUNT HEADER IS NOT DISPLAYED");
         softAssert.assertTrue(Login.isLoginToMyFitRewardsHeaderAvailable(),"THE LOGIN TO MY FIT REWARDS HEADER IS NOT DISPLAYED");
         softAssert.assertTrue(Login.isEmailTextboxAvailable(),"THE EMAIL TEXTBOX IS NOT DISPLAYED");
@@ -29,11 +39,9 @@ public class LoginTest extends TestBase {
         softAssert.assertAll();;
     }
 
-    @Test
+    @Test(description = "Verify without entering email and password", dependsOnMethods = "VerifyLoginPageContents")
     public void VerifyErrorMessagesWhenClickingLoginWithoutEmailAndPassword(){
         SoftAssert softAssert = new SoftAssert();
-        TheAthletesFootHome.loadHomePage();
-        TheAthletesFootHome.clickLoginButton();
         Login.clickLoginButton();
         String[] errorMessages_login = Login.getLoginErrorMessagesWhenEmailAndPasswordIsNotEntered();
         softAssert.assertEquals(errorMessages_login[0], Constants.ERRORMESSAGE_EMAIL_IS_REQUIRED);
@@ -42,27 +50,25 @@ public class LoginTest extends TestBase {
     }
 
 
-    @Test
+    @Test(description = "Verify entering invalid email", dependsOnMethods = "VerifyErrorMessagesWhenClickingLoginWithoutEmailAndPassword")
     public void VerifyErrorMessageWhenEnteringInvalidEmail(){
         SoftAssert softAssert = new SoftAssert();
-        TheAthletesFootHome.loadHomePage();
-        TheAthletesFootHome.clickLoginButton();
-        Login.loginWithInvalidEmail();
+        Login.loginWithInvalidEmail(loginData);
         softAssert.assertEquals(Login.getInvalidEmailErrorMessage(),Constants.ERRORMESSAGE_INVALID_EMAIL);
         softAssert.assertAll();
 
     }
 
-    @Test
+    @Test(description = "Verify entering unregistered user credentials", dependsOnMethods ="VerifyErrorMessageWhenEnteringInvalidEmail")
     public void VerifyErrorMessageWhenEnteringCredentialsOfUnregisteredUser(){
         SoftAssert softAssert = new SoftAssert();
-        TheAthletesFootHome.loadHomePage();
-        TheAthletesFootHome.clickLoginButton();
-        Login.loginWithUnregisteredUserCredentials();
+        Login.loginWithUnregisteredUserCredentials(loginData);
         softAssert.assertEquals(Login.getUnregisteredUserErrorMessage(),Constants.ERRORMESSAGE_UNREGISTERED_USER);
         softAssert.assertAll();
 
     }
+
+
 
 
 

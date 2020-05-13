@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class LoginPage extends TheAthletesFootHomePage{
 //protected static SyscoLabUI syscoLabUI;
-    LoginData loginData = new LoginData();
+    //LoginData loginData = new LoginData();
 
     private By loginOrCreateMyFitRewardsAccountHeader = By.xpath("//span[text()='LOGIN OR CREATE A MyFIT REWARDS™ ACCOUNT']");
     private By loginToMyFitRewardsHeader = By.xpath("//strong[text()='LOGIN TO MYFIT REWARDS']");
@@ -77,7 +77,7 @@ public class LoginPage extends TheAthletesFootHomePage{
         return errorMessages;
     }
 
-    public void clickLoginButtonWithInvalidEmail(){
+    public void clickLoginButtonWithInvalidEmail(LoginData loginData){
         syscoLabUI.sendKeys(txtEmail,loginData.invalidEmail);
         syscoLabUI.waitTillElementLoaded(btnLogin);
         syscoLabUI.click(btnLogin);
@@ -88,7 +88,7 @@ public class LoginPage extends TheAthletesFootHomePage{
         return errorMessages;
     }
 
-    public void clickLoginButtonWithUnregisteredEmailAndPassword(){
+    public void clickLoginButtonWithUnregisteredEmailAndPassword(LoginData loginData){
         syscoLabUI.sendKeys(txtEmail,loginData.unregisteredEmail);
         syscoLabUI.sendKeys(txtPassword,loginData.unregisteredPassword);
         syscoLabUI.waitTillElementLoaded(btnLogin);
@@ -101,7 +101,7 @@ public class LoginPage extends TheAthletesFootHomePage{
         return errorMessages;
     }
 
-    public void clickLoginButtonWithRegisteredEmailAndPassword(){
+    public void clickLoginButtonWithRegisteredEmailAndPassword(LoginData loginData){
         syscoLabUI.sendKeys(txtEmail,loginData.registeredEmail);
         syscoLabUI.sendKeys(txtPassword,loginData.registeredPassword);
         syscoLabUI.waitTillElementLoaded(btnLogin);

@@ -1,5 +1,6 @@
 package com.sysco.javaWebUIAutomation.function;
 
+import com.sysco.javaWebUIAutomation.data.CheckOutData;
 import com.sysco.javaWebUIAutomation.page.CheckOutPage;
 
 public class CheckOut {
@@ -31,8 +32,8 @@ public class CheckOut {
         return errorMessages;
     }
 
-    public static void setDataforCheckOutPageRequiredFields(){
-        checkOutPage.setDataforCheckOutPageRequiredFields();
+    public static void setDataforCheckOutPageRequiredFields(CheckOutData checkOutData){
+        checkOutPage.setDataforCheckOutPageRequiredFields(checkOutData);
     }
 
     public static boolean isPaymentInformationHeaderAvailable(){
